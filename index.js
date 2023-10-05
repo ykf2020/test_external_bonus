@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const routes = require('./routes/routes');
+const PORT = process.env.PORT || 3000
 require('dotenv').config();
 
 /*** connect db ***/
@@ -21,7 +22,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
     console.log(`Server Started at host 3000`)
 })
 
