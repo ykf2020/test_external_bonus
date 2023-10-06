@@ -5,31 +5,34 @@ const Model = require('../models/model');
 
 
 //get bonus info
-router.get('/bonus', (req, res) => {
+router.get('/bonus', async (req, res) => {
   const customer_id = req.query.customer_id
   const email = req.query.email
   
-  // 故意拖久一點 目前設3秒
-  setTimeout(async () => {
-    try {
-      const user = await Model.findOne({customer_id, email});
-      if(!user) {
-        //create user
-        const newUser = new Model({
-          customer_id,
-          email,
-          bonus_points: 6000
-        })
-        const user = await newUser.save()
+  try {
+    const user = await Model.findOne({customer_id, email});
+    if(!user) {
+      //create user
+      const newUser = new Model({
+        customer_id,
+        email,
+        bonus_points: 6000
+      })
+      const user = await newUser.save()
+      // 故意拖久一點 目前設3秒
+      setTimeout(() => {
         res.status(200).json({status:'Success', bonus_points: user.bonus_points})
-      } else {
+      }, 3000)
+    } else {
+      // 故意拖久一點 目前設3秒
+      setTimeout(() => {
         res.status(200).json({status:'Success',bonus_points: user.bonus_points})
-      }
+      }, 3000)
     }
-    catch(error){
-        res.status(500).json({status:'Fail', message: error.message})
-    }
-  }, 3000)
+  }
+  catch(error){
+      res.status(500).json({status:'Fail', message: error.message})
+  }
 })
 
 // order create webhook
