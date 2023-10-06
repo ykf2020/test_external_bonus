@@ -19,15 +19,9 @@ router.get('/bonus', async (req, res) => {
         bonus_points: 6000
       })
       const user = await newUser.save()
-      // 故意拖久1秒
-      setTimeout(() => {
-        res.status(200).json({status:'Success', bonus_points: user.bonus_points})
-      }, 1000)
+      res.status(200).json({status:'Success', bonus_points: user.bonus_points})
     } else {
-      // 故意拖久1秒
-      setTimeout(() => {
-        res.status(200).json({status:'Success',bonus_points: user.bonus_points})
-      }, 1000)
+      res.status(200).json({status:'Success',bonus_points: user.bonus_points})
     }
   }
   catch(error){
